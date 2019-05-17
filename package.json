@@ -1,21 +1,21 @@
 {
   "name": "AATeamModule",
   "version": "2.0.1",
-  "description": "Advanced Algos Team Module",
+  "description": "Superalgos Team Module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AdvancedAlgos/AATeamModule.git.git"
+    "url": "git+https://github.com/Superalgos/TeamsModule.git"
   },
   "keywords": [
-    "Advanced Algos"
+    "Superalgos"
   ],
   "author": "Barry Low <bearcanru@gmail.com>",
   "license": "SEE LICENSE IN LICENSE.MD",
   "bugs": {
-    "url": "https://github.com/AdvancedAlgos/AATeamModule.git/issues"
+    "url": "https://github.com/Superalgos/TeamsModule/issues"
   },
-  "homepage": "https://github.com/AdvancedAlgos/AATeamModule.git#readme"
+  "homepage": "https://github.com/Superalgos/TeamsModule"
 }

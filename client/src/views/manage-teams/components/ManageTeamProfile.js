@@ -110,7 +110,7 @@ export class ManageTeamProfile extends Component {
                         color='primary'
                         variant='contained'
                       >
-                        Back to all teams
+                        Back
                       </Button>
                     </Grid>
                     <Grid item>

@@ -132,7 +132,7 @@ export const ManageTeamsList = ({ classes, match, ...props }) => (
                   Whether you are a trader willing to try out the Strategizer or a developer with more complex aspirations, the first thing you will need is to create a Team.
                 </Typography>
                 <Typography className={classes.typography} variant='body1' gutterBottom align='left'>
-                  At the time of Team creation, the platform will fork two template Finacial Beings to get you started. 
+                  At the time of Team creation, the platform will fork a trading bot and a simulator strategy to get you started. 
                 </Typography>
                 <CreateTeamForm />
 
