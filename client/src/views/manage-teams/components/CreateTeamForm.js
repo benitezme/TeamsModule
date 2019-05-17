@@ -94,7 +94,7 @@ export class CreateTeamForm extends Component {
               className={classes.formContainer}
             >
               <Typography className={classes.typography} variant='body1' gutterBottom align='left'>
-              Give a nice and memorable name to your team.
+              Create a memorable name for your team
               </Typography>
 
               <TextField
@@ -112,7 +112,7 @@ export class CreateTeamForm extends Component {
                 <FormHelperText>{this.state.nameError}</FormHelperText>
               )}
               <Typography className={classes.typography} variant='body1' gutterBottom align='left'>
-              Give a name for to the bot you are forking.
+              Create a name for the trading bot
               </Typography>
               <TextField
                 autoFocus

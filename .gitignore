@@ -1,3 +1,4 @@
 /.cache
 .vscode
 docs/notes
+node_modules

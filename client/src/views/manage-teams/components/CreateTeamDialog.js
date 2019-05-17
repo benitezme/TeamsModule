@@ -127,11 +127,11 @@ export class CreateTeamDialog extends Component {
                         <FormHelperText>{this.state.nameError}</FormHelperText>
                       )}
                       <Typography variant='subtitle1' align='center' ><br />
-                        Create a name for your teams bot.
+                        Create a name for your teams bots.
                       </Typography>
                       <Typography align='center' >
-                        <em>(Temporary: In the future, creating multiple Financial Beings <br />
-                          will occur in a separate module)</em>
+                        <em>(Currently, a default trading bot and simulator strategh will be forked. <br />
+                          "Simulator" will be added to your chosen bot name for the simulator strategy.)</em>
                       </Typography>
                       <TextField
                         autoFocus
