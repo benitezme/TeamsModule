@@ -52,7 +52,6 @@ export const ManageTeamsItem = ({ classes, team, match, ...props }) => {
               >
                 <EditIcon /> Manage Profile
               </Button>
-              <ManageTeamDelete slug={team.slug} botSlug={team.fb[0].slug} />
             </Grid>
           </CardActions>
         </div>
@@ -60,6 +59,9 @@ export const ManageTeamsItem = ({ classes, team, match, ...props }) => {
     </Grid>
   )
 }
+
+// Removed for demo production - insert under Button at ln 54
+// <ManageTeamDelete slug={team.slug} botSlug={team.fb[0].slug} />
 
 ManageTeamsItem.propTypes = {
   classes: PropTypes.object.isRequired,
