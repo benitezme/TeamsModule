@@ -3,6 +3,8 @@ import { ApolloError } from 'apollo-server-express'
 
 import { getUser } from '../../../middleware/getMember'
 import { createStrategy } from './createStrategy'
+import { createTeamOnSAWeb } from './createTeamOnSAWeb'
+import { deleteTeamOnSAWeb } from './deleteTeamOnSAWeb'
 
 import { notifications_sendTeamCreateConfirmation, notifications_sendTeamMemberInvite, notifications_VerifyTeamMemberInviteToken } from '../notifications/sendgrid'
 
@@ -57,34 +59,8 @@ export const resolvers = {
       const avatar = process.env.STORAGE_URL + '/module-teams/module-default/aa-avatar-default.png'
       const banner = process.env.STORAGE_URL + '/module-teams/module-default/aa-banner-default.png'
 
-      const createTeamUrl = encodeURI(`${slug}/${name}/${alias}/${botSlug}/${botName}`)
-      logger.info('createTeamUrl:')
-      logger.info(JSON.stringify(await createTeamUrl))
-
-      const chartsUrl = process.env.CHARTS_URL + '/AABrowserAPI/newTeam/'
-
-      logger.info(`${chartsUrl}${createTeamUrl}/${authId}`)
-      const createPlatformTeam = await axios.get(`${chartsUrl}${createTeamUrl}/${authId}/${process.env.AAWEB_TEAM_SHARED_SECRET}`)
-        .then((result) => {
-          console.log('createPlatformTeam result:', result.data)
-          if(result.data.message === 'Team Name already taken'){
-            return { error: 'Team already exist on AA Cloud.', code: 409 }
-          }
-          if(result.data.result === 'Fail'){
-            return { error: `${result.data.message} - Creating team on AA Cloud has failed`, code: 404 }
-          }
-          return result
-        })
-
-      logger.info('createPlatformTeam')
-      logger.info(await createPlatformTeam)
-      logger.info('createPlatformTeam Error')
-      logger.error(await createPlatformTeam.error)
-      logger.info('createPlatformTeam Code')
-      logger.error(await createPlatformTeam.code)
-
-      // if (await createPlatformTeam.error && await createPlatformTeam.code === 404) throw new ApolloError(await createPlatformTeam.error, 404)
-      // if (await createPlatformTeam.error && await createPlatformTeam.code === 409) throw new ApolloError(await createPlatformTeam.error, 409)
+      // Create team on SAWEB
+      await createTeamOnSAWeb(slug, name, botName, botSlug, ctx.request.headers.authorization )
 
       const existingMember = await ctx.db.query.member({ where: { authId } }, `{id}`)
         .catch((err) => {
@@ -169,51 +145,16 @@ export const resolvers = {
       if (!authId) {
         throw new AuthenticationError()
       }
-      logger.info(authId)
-      logger.info('getUser')
-      logger.info(getUser)
 
-      return getUser(authId)
-        .then(async result => {
-          logger.info('deleteTeam axios:')
-          logger.info(await result)
+      await deleteTeamOnSAWeb(slug, ctx.request.headers.authorization)
 
-          const alias = await result.data.users_User.alias
-          // const email = result.data.users_User.email
-          const deleteTeamUrl = encodeURI(`${slug}/${alias}/${botSlug}`)
-          logger.info('deleteTeamUrl:')
-          logger.info(JSON.stringify(await deleteTeamUrl))
-
-          const chartsUrl = process.env.CHARTS_URL + '/AABrowserAPI/deleteTeam/'
-
-          logger.info(`${chartsUrl}${deleteTeamUrl}/${authId}`)
-          const deletePlatformTeam = await axios.get(`${chartsUrl}${deleteTeamUrl}/${authId}/${process.env.AAWEB_DELETE_TEAM_SHARED_SECRET}`)
-            .then((result) => {
-              console.log('deletePlatformTeam result:', result.data)
-              if(result.data.result === 'Fail'){
-                throw new DatabaseError(result.data.message)
-              }
-              return result
-            })
-            .catch(err =>{
-              logger.debug('deletePlatformTeam err:')
-              logger.debug(err)
-              throw new DatabaseError(err)
-            })
-          console.log('deletePlatformTeam returned: ', await deletePlatformTeam)
-
-          return ctx.db.mutation.deleteTeam({ where: { slug } }, info)
-            .catch((res) => {
-              logger.info('deleteTeam error: ', res)
-              const errors = res.graphQLErrors.map((error) => {
-                throw new DatabaseError(error.message)
-              })
-            })
+      return ctx.db.mutation.deleteTeam({ where: { slug } }, info)
+      .catch((res) => {
+        logger.info('deleteTeam error: ', res)
+        const errors = res.graphQLErrors.map((error) => {
+          throw new DatabaseError(error.message)
         })
-        .catch((err) => {
-          logger.debug('deleteTeam error: ')
-          throw new DatabaseError(err)
-        })
+      })
     }
   }
 }
