@@ -8,8 +8,8 @@ export const createStrategy = fbSlug => {
   return new Promise((resolve, reject) => {
     try {
       return axios.post(process.env.PLATFORM_API_URL, {
-        query: `mutation strategizer_CreateStrategy($fbSlug: String!) {
-          strategizer_CreateStrategy(fbSlug: $fbSlug){
+        query: `mutation strategizer_CreateTradingSystem($fbSlug: String!) {
+          strategizer_CreateTradingSystem(fbSlug: $fbSlug){
             id
           }
         }`,
