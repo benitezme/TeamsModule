@@ -59,8 +59,7 @@ export const resolvers = {
       const avatar = process.env.STORAGE_URL + '/module-teams/module-default/aa-avatar-default.png'
       const banner = process.env.STORAGE_URL + '/module-teams/module-default/aa-banner-default.png'
 
-      // Create team on SAWEB
-      await createTeamOnSAWeb(slug, name, botName, botSlug, ctx.request.headers.authorization )
+      await createTeamOnSAWeb(slug, name, botSlug, botName, ctx.request.headers.authorization )
 
       const existingMember = await ctx.db.query.member({ where: { authId } }, `{id}`)
         .catch((err) => {
