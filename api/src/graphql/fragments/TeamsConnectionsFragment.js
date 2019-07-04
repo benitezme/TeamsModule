@@ -50,4 +50,4 @@ const TEAMS_CONNECTIONS_FRAGMENT = gql`{
   }
 }`
 
-module.exports = TEAMS_CONNECTIONS_FRAGMENT
+export default TEAMS_CONNECTIONS_FRAGMENT

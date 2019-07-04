@@ -31,4 +31,4 @@ const TEAM_FB_FRAGMENT = gql`{
   }
 }`
 
-module.exports = TEAM_FB_FRAGMENT
+export default TEAM_FB_FRAGMENT
