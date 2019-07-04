@@ -13,4 +13,4 @@ const FB_FRAGMENT = gql`{
   }
 }`
 
-module.exports = FB_FRAGMENT
+export default FB_FRAGMENT
