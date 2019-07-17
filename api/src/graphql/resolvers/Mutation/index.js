@@ -3,6 +3,7 @@ import { ApolloError } from 'apollo-server-express'
 
 import { getUser } from '../../../middleware/getMember'
 import { createStrategy } from './createStrategy'
+import { deleteStrategy } from './deleteStrategy'
 import { createTeamOnSAWeb } from './createTeamOnSAWeb'
 import { deleteTeamOnSAWeb } from './deleteTeamOnSAWeb'
 
@@ -145,6 +146,7 @@ export const resolvers = {
         throw new AuthenticationError()
       }
 
+      await deleteStrategy('simulator-' + botSlug)
       await deleteTeamOnSAWeb(slug, ctx.request.headers.authorization)
 
       return ctx.db.mutation.deleteTeam({ where: { slug } }, info)
